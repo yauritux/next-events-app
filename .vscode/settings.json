@@ -1,0 +1,8 @@
+{
+  "terminal.integrated.env.osx": {
+    "PATH": "/Users/yauritux/.azurelogicapps/dependencies/DotNetSDK:${env:PATH}"
+  },
+  "omnisharp.dotNetCliPaths": [
+    "/Users/yauritux/.azurelogicapps/dependencies/DotNetSDK"
+  ]
+}
