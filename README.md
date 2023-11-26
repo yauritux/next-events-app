@@ -2,6 +2,8 @@
 
 A simple app that give you a glance on how to develop a full-fledge web-based application using [NextJS](https://nextjs.org).
 As the name implies, the application itself is an app that shares some events held by the communities around you.
+This application was intentionally prepared for my NextJS foundation class training.
+You are free to use all of the provided materials. Grab the training slides from [here](public/docs/NextJS-Foundation-Class.pdf).
 
 ## Context Diagram (HLD)
 
