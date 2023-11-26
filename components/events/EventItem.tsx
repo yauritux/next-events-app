@@ -10,7 +10,7 @@ function EventItem(props: {
   const { id, image, title, date, location } = props;
   return (
     <li key={id} className={classes.item}>
-      <img src={image} alt="" className={classes.item} />
+      <img src={"/" + image} alt="" className={classes.item} />
       <div>
         <div>
           <h2>{title}</h2>
