@@ -1,14 +1,6 @@
 import data from "@/events-data.json";
 
-export type Event = {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  location: string;
-  date: string;
-  isFeatured: boolean;
-};
+import { Event } from "@/models/Event";
 
 export function allEvents(): Event[] {
   return data;
