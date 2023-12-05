@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import classes from "./main-header.module.css";
+import Button from "../ui/Button";
 
 function MainHeader() {
   return (
@@ -11,7 +12,7 @@ function MainHeader() {
       <nav className={classes.navigation}>
         <ul>
           <li>
-            <Link href="/events">Browse All Events</Link>
+            <Button link="/events">Browse All Events</Button>
           </li>
         </ul>
       </nav>
