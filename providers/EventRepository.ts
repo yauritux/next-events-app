@@ -24,3 +24,7 @@ export function filterEvent(year: number, month: number) {
 export function featuredEvents(): Event[] {
   return data.filter((event) => event.isFeatured);
 }
+
+export function getEventById(id: string): Event | undefined {
+  return data.find((event) => event.id === id);
+}
