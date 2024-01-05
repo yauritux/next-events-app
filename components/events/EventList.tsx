@@ -1,4 +1,4 @@
-import { Event } from "@/providers/EventRepository";
+import { Event } from "@/models/Event";
 import EventItem from "./EventItem";
 
 import classes from "./event-list.module.css";
