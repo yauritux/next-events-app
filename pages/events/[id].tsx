@@ -1,37 +1,55 @@
-import { useRouter } from "next/router";
-
-import { getEventById } from "@/providers/EventRepository";
 import EventSummary from "@/components/event-detail/EventSummary";
 import EventLogistics from "@/components/event-detail/EventLogistics";
 import EventContent from "@/components/event-detail/EventContent";
+import { GetStaticPaths, GetStaticProps } from "next";
+import {
+  getEventById,
+  featuredEvents,
+} from "@/providers/EventFirebaseRepository";
+import { Event } from "@/models/Event";
 
-function EventDetailPage() {
-  const router = useRouter();
-
-  const eventId = router.query?.id;
-
-  if (typeof eventId === "string") {
-    const event = getEventById(eventId);
-
-    if (!event) {
-      return <p>No event found!</p>;
-    }
-
-    return (
-      <>
-        <EventSummary title={event.title} />
-        <EventLogistics
-          date={event.date}
-          address={event.location}
-          image={event.image}
-          imageAlt={event.title}
-        />
-        <EventContent>
-          <p>{event.description}</p>
-        </EventContent>
-      </>
-    );
+function EventDetailPage({ selectedEvent }: { selectedEvent: Event }) {
+  if (!selectedEvent) {
+    return <div className="center">Loading...</div>;
   }
+
+  return (
+    <>
+      <EventSummary title={selectedEvent.title} />
+      <EventLogistics
+        date={selectedEvent.date}
+        address={selectedEvent.location}
+        image={selectedEvent.image}
+        imageAlt={selectedEvent.title}
+      />
+      <EventContent>
+        <p>{selectedEvent.description}</p>
+      </EventContent>
+    </>
+  );
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const eventId = context.params?.id;
+
+  const event = await getEventById(eventId);
+
+  return {
+    props: {
+      selectedEvent: event,
+    },
+    revalidate: 30,
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const events = await featuredEvents(); // we merely retrieve featured events to reduce any unnecessary overhead times when loading all events.
+
+  const paths = events.map((event) => ({ params: { id: event.id } }));
+  return {
+    paths: paths,
+    fallback: true, // any possibly call to an event that is not pre-rendered yet will trigger the server to load the page at runtime for that particular incoming request.
+  };
+};
 
 export default EventDetailPage;
