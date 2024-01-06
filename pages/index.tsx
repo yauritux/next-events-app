@@ -1,10 +1,7 @@
 import EventList from "@/components/events/EventList";
 import { Event } from "@/models/Event";
 
-import {
-  featuredEvents,
-  initializeDataSeed,
-} from "@/providers/EventDBRepository";
+import { featuredEvents } from "@/providers/EventFirebaseRepository";
 import { GetStaticProps } from "next";
 
 function Home({ events }: { events: Event[] }) {
@@ -12,14 +9,13 @@ function Home({ events }: { events: Event[] }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  console.log("Re-generate initial data seed...");
-  await initializeDataSeed();
+  console.log("Pre-rendering initial data seed...");
 
   return {
     props: {
       events: await featuredEvents(),
     },
-    revalidate: 5,
+    revalidate: 1800, // rebuild the page every 1800 seconds / every half hour
   };
 };
 
