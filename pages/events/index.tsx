@@ -1,11 +1,11 @@
 import EventList from "@/components/events/EventList";
 import EventSearch from "@/components/events/EventSearch";
-import { allEvents } from "@/providers/EventRepository";
+import { Event } from "@/models/Event";
+import { allEvents } from "@/providers/EventFirebaseRepository";
+import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 
-function AllEventsPage() {
-  const events = allEvents();
-
+function AllEventsPage({ events }: { events: Event[] }) {
   const router = useRouter();
 
   function findEventHandler(year: number, month: number) {
@@ -21,5 +21,14 @@ function AllEventsPage() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      events: await allEvents(),
+    },
+    revalidate: 60,
+  };
+};
 
 export default AllEventsPage;
