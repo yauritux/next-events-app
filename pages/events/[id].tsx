@@ -7,6 +7,7 @@ import {
   featuredEvents,
 } from "@/providers/EventFirebaseRepository";
 import { Event } from "@/models/Event";
+import Head from "next/head";
 
 function EventDetailPage({ selectedEvent }: { selectedEvent: Event }) {
   if (!selectedEvent) {
@@ -15,6 +16,10 @@ function EventDetailPage({ selectedEvent }: { selectedEvent: Event }) {
 
   return (
     <>
+      <Head>
+        <title>{selectedEvent.title}</title>
+        <meta name="description" content={selectedEvent.description} />
+      </Head>
       <EventSummary title={selectedEvent.title} />
       <EventLogistics
         date={selectedEvent.date}
