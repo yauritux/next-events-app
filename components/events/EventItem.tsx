@@ -1,3 +1,4 @@
+import Image from "next/image";
 import ArrowRightIcon from "../icons/ArrowRightIcon";
 import Button from "../ui/Button";
 import classes from "./event-item.module.css";
@@ -22,7 +23,13 @@ function EventItem(props: {
 
   return (
     <li key={id} className={classes.item}>
-      <img src={"/" + image} alt="" className={classes.item} />
+      <Image
+        src={"/" + image}
+        alt=""
+        className={classes.item}
+        width={250}
+        height={160}
+      />
       <div>
         <div>
           <h2>{title}</h2>
